@@ -1,0 +1,10 @@
+package-lock.json
+
+# Ignorer les dossiers spécifiques à l'environnement de développement
+.angular/
+.idea/
+.vscode/
+
+# Ignorer les fichiers et répertoires générés automatiquement
+public/
+node_modules/
