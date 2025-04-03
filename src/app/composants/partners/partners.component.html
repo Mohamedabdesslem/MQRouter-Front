@@ -1,0 +1,88 @@
+<h2>Partners</h2>
+
+<!-- Formulaire pour ajouter un partenaire -->
+<form [formGroup]="partnerForm" (ngSubmit)="addPartner()">
+  <div>
+    <label for="alias">Alias:</label>
+    <input id="alias" formControlName="alias" />
+    <div *ngIf="partnerForm.get('alias')?.invalid && partnerForm.get('alias')?.touched">
+      <small>Alias is required</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="type">Type:</label>
+    <input id="type" formControlName="type" />
+    <div *ngIf="partnerForm.get('type')?.invalid && partnerForm.get('type')?.touched">
+      <small>Type is required</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="direction">Direction:</label>
+    <select id="direction" formControlName="direction">
+      <option value="INBOUND">INBOUND</option>
+      <option value="OUTBOUND">OUTBOUND</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="application">Application:</label>
+    <input id="application" formControlName="application" />
+    <div *ngIf="partnerForm.get('application')?.invalid && partnerForm.get('application')?.touched">
+      <small>Application is required</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="processedFlowType">Processed Flow Type:</label>
+    <select id="processedFlowType" formControlName="processedFlowType">
+      <option value="MESSAGE">MESSAGE</option>
+      <option value="ALERTING">ALERTING</option>
+      <option value="NOTIFICATION">NOTIFICATION</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description"></textarea>
+    <div *ngIf="partnerForm.get('description')?.invalid && partnerForm.get('description')?.touched">
+      <small>Description is required</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="partnerForm.invalid">Add Partner</button>
+</form>
+
+<!-- Liste des partenaires -->
+<table>
+  <thead>
+  <tr>
+    <th>Alias</th>
+    <th>Type</th>
+    <th>Direction</th>
+    <th>Application</th>
+    <th>Processed Flow Type</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let partner of partners | paginate: { id: paginationId, itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems  }">
+    <td>{{ partner.alias }}</td>
+    <td>{{ partner.type }}</td>
+    <td>{{ partner.direction }}</td>
+    <td>{{ partner.application }}</td>
+    <td>{{ partner.processedFlowType }}</td>
+    <td>{{ partner.description }}</td>
+    <td><button (click)="deletePartner(partner.id)">Delete</button></td>
+  </tr>
+  </tbody>
+</table>
+
+
+<pagination-controls
+  paginationId="partners-pagination"
+  [id]="'partners-pagination'"
+  (pageChange)="pageChanged($event)">
+</pagination-controls>

@@ -1,4 +1,5 @@
 export interface PartnerCreateDTO {
+  id: number;
   alias: string;
   type: string;
   direction: string;
