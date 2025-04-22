@@ -17,5 +17,5 @@ export const appRoutes: Routes = [
     component: MessagesComponent,
     canActivate: [AuthGuard],  // Utilisation de AuthGuard pour protéger la route
   },
-  { path: '**', component: LoginComponent }  // Redirection vers la page de login si la route n'existe pas
+  { path: '**', component: LoginComponent ,canActivate: [AuthGuard],}  // Redirection vers la page de login si la route n'existe pas
 ];

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
-import {CommonModule} from '@angular/common';
+
 import {AuthService} from './services/auth.service';
 import {LoginComponent} from './composants/login/login.component';
 
@@ -9,7 +9,7 @@ import {LoginComponent} from './composants/login/login.component';
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [RouterOutlet, RouterLink, CommonModule, LoginComponent]
+  imports: [RouterOutlet, RouterLink, LoginComponent]
 })
 export class AppComponent {
   title = 'Routing Messages App';

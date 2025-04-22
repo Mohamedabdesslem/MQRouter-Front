@@ -9,9 +9,11 @@
       <label for="password">Mot de passe</label>
       <input id="password" [(ngModel)]="password" type="password" name="password" required />
     </div>
-    <div *ngIf="errorMessage" class="error">
-      {{ errorMessage }}
-    </div>
+    @if (errorMessage) {
+      <div class="error">
+        {{ errorMessage }}
+      </div>
+    }
     <button type="submit">Se connecter</button>
   </form>
 </div>

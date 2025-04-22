@@ -1,17 +1,19 @@
 <h2>Messages</h2>
 <table>
   <thead>
-  <tr>
-    <th>Message ID</th>
-  </tr>
+    <tr>
+      <th>Message ID</th>
+    </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let message of messages | paginate: { id: paginationId, itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}" >
-    <td>
-      <!-- Lien sur message.id -->
-      <a href="#" (click)="openDetailMessage(message)">{{ message.id }}</a>
-    </td>
-  </tr>
+    @for (message of messages | paginate: { id: paginationId, itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; track message) {
+      <tr >
+        <td>
+          <!-- Lien sur message.id -->
+          <a href="#" (click)="openDetailMessage(message)">{{ message.id }}</a>
+        </td>
+      </tr>
+    }
   </tbody>
 </table>
 
@@ -22,13 +24,15 @@
 </pagination-controls>
 
 <!-- Modale (Popin) pour afficher les détails du message -->
-<div *ngIf="isDetailsMessageOpen" class="modal">
-  <div class="modal-content">
-    <span class="close" (click)="closeDetailMessage()">&times;</span>
-    <h2>Détails du Message</h2>
-    <p><strong>ID:</strong> {{ selectedMessage.id }}</p>
-    <p><strong>Contenu:</strong> {{ selectedMessage.content }}</p>
-    <p><strong>Date:</strong> {{ selectedMessage.receivedAt | date: 'short' }}</p>
-    <button (click)="closeDetailMessage()">Cancel</button>
+@if (isDetailsMessageOpen) {
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeDetailMessage()">&times;</span>
+      <h2>Détails du Message</h2>
+      <p><strong>ID:</strong> {{ selectedMessage.id }}</p>
+      <p><strong>Contenu:</strong> {{ selectedMessage.content }}</p>
+      <p><strong>Date:</strong> {{ selectedMessage.receivedAt | date: 'short' }}</p>
+      <button (click)="closeDetailMessage()">Cancel</button>
+    </div>
   </div>
-</div>
+}

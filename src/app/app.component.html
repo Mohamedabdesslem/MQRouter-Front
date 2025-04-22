@@ -1,16 +1,20 @@
-<div *ngIf="!isAuthenticated">
-  <!-- Affichage du composant de connexion -->
-  <app-login></app-login>
-</div>
+@if (!isAuthenticated) {
+  <div>
+    <!-- Affichage du composant de connexion -->
+    <app-login></app-login>
+  </div>
+}
 
-<div *ngIf="isAuthenticated">
-  <!-- Affichage du menu et du bouton de déconnexion après la connexion -->
-  <button class="logout-btn" (click)="logout()">Déconnexion</button>
-  <nav>
-    <ul>
-      <li><a routerLink="/partners">Partners</a></li>
-      <li><a routerLink="/messages">Messages</a></li>
-    </ul>
-  </nav>
-  <router-outlet></router-outlet>
-</div>
+@if (isAuthenticated) {
+  <div>
+    <!-- Affichage du menu et du bouton de déconnexion après la connexion -->
+    <button class="logout-btn" (click)="logout()">Déconnexion</button>
+    <nav>
+      <ul>
+        <li><a routerLink="/partners">Partners</a></li>
+        <li><a routerLink="/messages">Messages</a></li>
+      </ul>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+}

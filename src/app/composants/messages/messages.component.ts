@@ -3,6 +3,7 @@ import { MessageService } from '../../services/message.service';
 import { MessageEntity } from '../../services/message.model';
 import {CommonModule} from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-messages',
@@ -19,15 +20,16 @@ export class MessagesComponent implements OnInit {
   paginationId = 'partners-pagination';
   isDetailsMessageOpen = false;
   selectedMessage: any;
+  subscription: Subscription= new Subscription();
 
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService ) {}
 
   ngOnInit(): void {
     this.loadMessages()
   }
 
   loadMessages() {
-    this.messageService.getMessages(this.currentPage - 1, this.itemsPerPage)
+    this.subscription = this.messageService.getMessages(this.currentPage - 1, this.itemsPerPage)
       .subscribe(response => {
         this.messages = response.content;  // Liste paginée des messages
         this.totalItems = response.totalElements; // Total des messages dans la BD
@@ -47,5 +49,11 @@ export class MessagesComponent implements OnInit {
   closeDetailMessage() {
     this.isDetailsMessageOpen = false;
     this.selectedMessage = null;
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

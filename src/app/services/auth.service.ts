@@ -14,7 +14,10 @@ export class AuthService {
   private authStatus = new BehaviorSubject<boolean>(false);
   authStatus$ = this.authStatus.asObservable();
 
-  constructor(private http: HttpClient,  private router: Router) {}
+  constructor(private http: HttpClient,  private router: Router) {
+    const token = localStorage.getItem('token');
+    this.authStatus.next(!!token);
+  }
 
   login(username: string, password: string): Observable<boolean> {
     const credentials = { username, password };
